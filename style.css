@@ -1,9 +1,10 @@
+/* ---> ESTRUTURA <--- */
 body{
   margin:0;
   font-family: Poppins;
 }
 #top,#bottom{
-  background-color: #020250;
+  background-color: #420505;
   color:white;
 }
 #top{ 
@@ -20,15 +21,27 @@ body{
   justify-content:center;
   align-items: center;
 }
+div#above{
+  display:flex;
+  justify-content:space-between;
+}
+#ctbox30{
+  min-width:30vw;
+}
+#ctbox60{
+  min-width:60vw;
+  padding-left:50px;
+  padding-top:0px;
+}
 
 /* ---> CONTENT <--- */
-
 #content{
-  background-color: #dad6ff;
+  background-color: #fde7e7;
   color:#000000;
   padding: 20px;
   padding-left:5vw;
   padding-right:5vw;
+  min-height: 60vh;
 }
 #content h3, p{
   margin:0;
@@ -39,45 +52,68 @@ p{
 #content h3{
   font-size:25px;
 }
-div#line{
-  display:flex;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  vertical-align: center;
-}
-input#title{
-  margin-left:10px;
-  border-radius:5px;
-  border:2px solid black;
-}
 div#about{
   padding-bottom:20px;
 }
-div#fulltext p{
-  padding-top: 5px;
-  padding-bottom: 5px;
+
+/* ---> CATEGORIAS SORTEADAS <--- */
+div#cat{
+  display:inline-box;
+  justify-items:start;
 }
-textarea#fulltext{
+.catItem{
+  background-color: #ffadad;
+  color:#000000;
+  border-radius:15px;
+  padding:10px 10px 10px 10px;
+  text-align: center;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+/* ---> ESCOLHER QTD CATEDORIAS E FILTRO DO FILME <---  */
+div#catQtd, div#chsFilme{
+  display:flex;
+  justify-content:inline-block;
+  align-items: center;
+}
+div#catqt{
+  display:flex;
+}
+input#catInput,select#movFilter{
+  text-align:center;
   border-radius:5px;
-  border:2px solid black;
-  min-height:50vh;
-  width:35vw;
+  border:1px solid black;
+  margin-right:15px;
+  width:50px;
+  height:30px;
+  font-size:18px;
 }
+select#movFilter{
+  width:165px;
+  height:35px;
+}
+.dadoButton{
+  margin-left: 15px;
+  margin-top: 0px;
+}
+
+/* ---> BOTÃO <--- */
 button{
-  margin-top:20px;
-  margin-bottom:20px;
-  background-color: #020250;
+  background-color: #420505;
   color:white;
-  width:120px;
-  height:50px;
-  font-size:20px;
-  border-radius:20px;
+  width:100px;
+  height:35px;
+  font-size:18px;
+  border-radius:5px;
 }
 button:hover{
   transition: 0.2s;
   background-color: white;
   color:black;
 }
+
+/* ---> FOOTER <--- */
 div#footer{
   text-align: center;
 }
@@ -90,6 +126,43 @@ a{
 }
 a:hover{
   transition: 0.2s;
-  color:#dad6ff;
+  color:#ffbdbd;
   font-size: 21px;
 }
+
+
+/*  RESIZE TXTAREA */
+@media screen and (max-width: 1100px){
+  #ctbox30{
+    min-width:90vw;
+  }
+  #ctbox60{
+    min-width:90vw;
+    padding-left:0px;
+    padding-top:30px;
+  }
+  div#above, div#catQtd, div#chsFilme{
+    display:block;
+  }
+  .dadoButton{
+    margin-left: 0px;
+    margin-top: 15px;
+  }
+}
+@media screen and (min-width: 1100px){
+  #ctbox30{
+    min-width:30vw;
+  }
+  #ctbox60{
+    min-width:60vw;
+    padding-left:50px;
+    padding-top:0px;
+  }
+  div#above, div#catQtd, div#chsFilme{
+    display:flex;
+  }
+  .dadoButton{
+    margin-left: 15px;
+    margin-top: 0px;
+  }
+} 

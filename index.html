@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>replit</title>
+  <title>NextMovie</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link rel="icon" href="">
@@ -13,24 +13,51 @@
 <body>
   <div id="main">
     <div id="top">
-      <h1>QuickSlide</h1>
+      <h1>NextMovie</h1>
     </div>
     <div id="content">
       <div id="about">
         <h3>O que é?</h3>
-        <p>O QuickSlide é uma ferramenta que resume qualquer conteúdo de texto em uma apresentação de slides. Atualmente, a ferramenta funciona apenas em Português(BR).</p>
+        <p>Sabe quando bate aquela vontade de assistir um filme mas você não faz ideia do que assistir? Essa ferramenta é para você!</p>
+        <p>Aqui você pode sortear uma categoria aleatória de filmes para assistir e até mesmo um filme aleatório com base na categoria selecionada.</p>
       </div>
-      <form>
-        <h3>Apresentação:</h3>
-        <div id="line">
-          <p>Título:</p><input id="title" type="text">
+      
+      <div id="above">
+        
+        <div id="ctbox30">
+          <h3>Selecione as categorias:</h3>
+          <div id="catQtd">
+            <div>
+              <p>Quantas categorias você deseja sortear?</p>
+            </div>
+            <div class="dadoButton" id="catqt">
+              <input type="number" min="1" value="1" id="catInput" max="19"></input>
+              <button id="catButton" onclick="catRandom()">Random</button>
+            </div>            
+          </div>
+          <div id="cat">
+          </div>
         </div>
-        <div id="fulltext">
-          <p>Texto para compor a apresentação de slides:</p>
-          <textarea id="fulltext"></textarea>
+
+        <div id="ctbox60">
+          <h3>Encontre seu filme:</h3>
+          <div id="chsFilme">
+            <div>
+              <p>Ver filmes aleatórios por ordem de:</p>
+            </div>
+            <div class="dadoButton">
+              <select id="movFilter" required>
+                <option value="yng">Mais novos</option>
+                <option value="ppl">Populares</option>
+                <option value="bst">Melhor avaliados</option>
+              </select>
+              <button id="catButton" onclick="">Buscar</button>
+            </div>
+          </div>
         </div>
-        <button id="">Criar</button>
-      </form>
+        
+      </div>
+      
     </div>
     <div id="bottom">
       <div id="footer">
