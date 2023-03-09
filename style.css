@@ -4,8 +4,8 @@ body{
   font-family: Poppins;
 }
 #top,#bottom{
-  background-color: #420505;
-  color:white;
+  background-color: #000000;
+  color:#ff3d3d;
 }
 #top{ 
   max-height: 60px;
@@ -26,17 +26,16 @@ div#above{
   justify-content:space-between;
 }
 #ctbox30{
-  min-width:30vw;
+  max-width:35vw;
 }
 #ctbox60{
-  min-width:60vw;
-  padding-left:50px;
+  max-width:50vw;
   padding-top:0px;
 }
 
 /* ---> CONTENT <--- */
 #content{
-  background-color: #fde7e7;
+  background-color: #ffffff;
   color:#000000;
   padding: 20px;
   padding-left:5vw;
@@ -55,6 +54,9 @@ p{
 div#about{
   padding-bottom:20px;
 }
+.centerTitle{
+  text-align: center;
+}
 
 /* ---> CATEGORIAS SORTEADAS <--- */
 div#cat{
@@ -62,10 +64,10 @@ div#cat{
   justify-items:start;
 }
 .catItem{
-  background-color: #ffadad;
+  background-color: #fe6c6c;
   color:#000000;
   border-radius:15px;
-  padding:10px 10px 10px 10px;
+  padding:10px;
   text-align: center;
   margin-top:10px;
   margin-bottom:10px;
@@ -74,7 +76,7 @@ div#cat{
 /* ---> ESCOLHER QTD CATEDORIAS E FILTRO DO FILME <---  */
 div#catQtd, div#chsFilme{
   display:flex;
-  justify-content:inline-block;
+  justify-content:center;
   align-items: center;
 }
 div#catqt{
@@ -98,10 +100,33 @@ select#movFilter{
   margin-top: 0px;
 }
 
+/* ---> FILMES <--- */
+.filme{
+  background-color: #fe6c6c;
+  color:#000000;
+  border-radius:15px;
+  padding:10px;
+  margin-top:10px;
+  margin-bottom:10px;
+  display:flex;
+  justify-content: space-between;
+}
+.filmeInfo{
+  padding:15px;
+}
+.filmeFoto{
+  padding:15px;
+}
+.poster{
+  border-radius:15px;
+  max-width: 650px;
+  max-height: 365px;
+}
+
 /* ---> BOTÃO <--- */
 button{
-  background-color: #420505;
-  color:white;
+  background-color: #ff3d3d;
+  color:black;
   width:100px;
   height:35px;
   font-size:18px;
@@ -109,8 +134,8 @@ button{
 }
 button:hover{
   transition: 0.2s;
-  background-color: white;
-  color:black;
+  background-color: black;
+  color:#ff3d3d;
 }
 
 /* ---> FOOTER <--- */
@@ -134,11 +159,10 @@ a:hover{
 /*  RESIZE TXTAREA */
 @media screen and (max-width: 1100px){
   #ctbox30{
-    min-width:90vw;
+    max-width:90vw;
   }
   #ctbox60{
-    min-width:90vw;
-    padding-left:0px;
+    max-width:90vw;
     padding-top:30px;
   }
   div#above, div#catQtd, div#chsFilme{
@@ -151,11 +175,10 @@ a:hover{
 }
 @media screen and (min-width: 1100px){
   #ctbox30{
-    min-width:30vw;
+    max-width:35vw;
   }
   #ctbox60{
-    min-width:60vw;
-    padding-left:50px;
+    max-width:50vw;
     padding-top:0px;
   }
   div#above, div#catQtd, div#chsFilme{
