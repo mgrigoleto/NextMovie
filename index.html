@@ -17,22 +17,24 @@
     </div>
     <div id="content">
       <div id="about">
-        <h3>O que é?</h3>
+        <h3 id="oqe">O que é?</h3>
         <p>Sabe quando bate aquela vontade de assistir um filme mas você não faz ideia do que assistir? Essa ferramenta é para você!</p>
-        <p>Aqui você pode sortear uma categoria aleatória de filmes para assistir e até mesmo um filme aleatório com base na categoria selecionada.</p>
+        <p>Aqui você consegue obter um leque aleatório de filmes para assistir, com base nos gêneros que também são escolhidos aleatóriamente para você!</p>
+      </div>
+      <div id="sortear">       
+        <p>BUSCAR</p>
       </div>
       
       <div id="above">
         
         <div id="ctbox30">
-          <h3 class="centerTitle">Selecione as categorias:</h3>
+          <h3 class="centerTitle">Gêneros sorteados:</h3>
           <div id="catQtd">
             <div>
-              <p>Quantas categorias você deseja sortear?</p>
+              <p>Quantos gêneros de filme você deseja sortear?</p>
             </div>
             <div class="dadoButton" id="catqt">
               <input type="number" min="1" value="1" id="catInput" max="19"></input>
-              <button id="catButton" onclick="catRandom()">Random</button>
             </div>            
           </div>
           <div id="cat">
@@ -40,31 +42,30 @@
         </div>
 
         <div id="ctbox60">
-          <h3 class="centerTitle">Encontre seu filme:</h3>
+          <h3 class="centerTitle">Lista de filmes:</h3>
           <div id="chsFilme">
             <div>
-              <p>Ver filmes aleatórios por ordem de:</p>
+              <p>Procurar filmes que sejam:</p>
             </div>
             <div class="dadoButton">
-              <select id="movFilter" required>
+              <select id="movFilter" required>                
+                <option value="ppl" selected>Populares</option>
                 <option value="yng">Mais novos</option>
-                <option value="ppl">Populares</option>
                 <option value="bst">Melhor avaliados</option>
               </select>
-              <button id="catButton" onclick="showMovies()">Buscar</button>
             </div>
           </div>
 
           <div class="filme">
-            <div class="filmeInfo">
-              <h3>Pantera Negra: Wakanda para Sempre</h3>
+            <div class="filmeFoto">
+              <p id="titulo">Pantera Negra: Wakanda para Sempre</p>
+              <img class="poster" src="https://image.tmdb.org/t/p/w500/sv1xJUazXeYqALzczSZ3O6nkH75.jpg?api_key=5bb8005de7fd8012a01a757e91ccf015">
+            </div>
+            <div class="filmeInfo">              
               <p><b>Gênero:</b> Ação</p>
               <p><b>Sinopse:</b> A rainha Ramonda, Shuri, M'Baku, Okoye e as poderosas Dora Milaje lutam para proteger sua nação após a morte do rei T'Challa. Com a ajuda da Cão de Guerra Nakia e de Everett Ross, eles tentam encontrar um novo caminho para Wakanda.</p>
               <p><b>Data de Lançamento:</b> 19/01/2023</p>
               <p><b>Média:</b> 6.0</p>
-            </div>
-            <div class="filmeFoto">
-              <img class="poster" src="https://image.tmdb.org/t/p/w500/sv1xJUazXeYqALzczSZ3O6nkH75.jpg?api_key=5bb8005de7fd8012a01a757e91ccf015">
             </div>
           </div>
           

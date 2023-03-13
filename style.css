@@ -33,6 +33,46 @@ div#above{
   padding-top:0px;
 }
 
+/* ---> SORTEAR <--- */
+div#sortear{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #ff3d3d;
+  box-shadow:inset white 20vw 0 7vw -7vw, inset white -20vw 0 7vw -7vw;
+  animation: piscar 5s infinite;
+}
+div#sortear p{
+  font-weight: bold;
+  font-size: 30px;
+}
+@keyframes piscar{
+  0%{
+    color:black;
+  }
+  60%{
+    color:black;
+  }
+  80%{
+    color:#ffffff;
+  }
+}
+div#sortear:hover{
+  animation: hoverColor 0.2s infinite;
+  transition:0.2s;
+  cursor: pointer;
+  background-color: #000000;
+  color:white;  
+}
+@keyframes hoverColor{
+  0%{
+    color: white;
+  }
+}
+
 /* ---> CONTENT <--- */
 #content{
   background-color: #ffffff;
@@ -51,8 +91,8 @@ p{
 #content h3{
   font-size:25px;
 }
-div#about{
-  padding-bottom:20px;
+#oqe{
+  text-align: left;
 }
 .centerTitle{
   text-align: center;
@@ -114,28 +154,25 @@ select#movFilter{
 .filmeInfo{
   padding:15px;
 }
+.filmeInfo p{
+  padding-bottom:10px;
+}
 .filmeFoto{
   padding:15px;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
 }
 .poster{
   border-radius:15px;
-  max-width: 650px;
-  max-height: 365px;
+  max-width: 750px;
+  max-height: 422px;
 }
-
-/* ---> BOTÃO <--- */
-button{
-  background-color: #ff3d3d;
-  color:black;
-  width:100px;
-  height:35px;
-  font-size:18px;
-  border-radius:5px;
-}
-button:hover{
-  transition: 0.2s;
-  background-color: black;
-  color:#ff3d3d;
+#titulo{
+  font-weight: bold;
+  text-align: center;
+  font-size: 22px;
 }
 
 /* ---> FOOTER <--- */
@@ -156,7 +193,7 @@ a:hover{
 }
 
 
-/*  RESIZE TXTAREA */
+/* ---> RESIZE <--- */
 @media screen and (max-width: 1100px){
   #ctbox30{
     max-width:90vw;
@@ -171,6 +208,12 @@ a:hover{
   .dadoButton{
     margin-left: 0px;
     margin-top: 15px;
+  }
+  .filme{
+    display:block;
+  }
+  #oqe{
+    text-align: center;
   }
 }
 @media screen and (min-width: 1100px){
@@ -188,4 +231,23 @@ a:hover{
     margin-left: 15px;
     margin-top: 0px;
   }
-} 
+  .filme{
+    display:flex;
+  }
+  #oqe{
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 350px){
+  .poster{
+    max-width: 550px;
+    max-height: 309px;
+  }
+}
+@media screen and (min-width: 350px){
+  .poster{
+    max-width: 750px;
+    max-height: 422px;
+  }
+}
