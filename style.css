@@ -104,7 +104,7 @@ div#cat{
   justify-items:start;
 }
 .catItem{
-  background-color: #fe6c6c;
+  background-color: #ffc9b3;
   color:#000000;
   border-radius:15px;
   padding:10px;
@@ -142,7 +142,7 @@ select#movFilter{
 
 /* ---> FILMES <--- */
 .filme{
-  background-color: #fe6c6c;
+  background-color: #ffc9b3;
   color:#000000;
   border-radius:15px;
   padding:10px;
