@@ -1,10 +1,22 @@
 var clique = document.querySelector('#sortear')
 clique.addEventListener('click', async function(){const exec = await showMovies()})
 
-async function catRandom(){
+async function getGeneros(){
   var catURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR"
   var catResponse = await fetch(catURL)
   var catData = await catResponse.json()
+  return catData
+}
+
+async function getFilmes(url){
+  var filme = url
+  var filmeResponse = await fetch(filme)
+  var filmeData = await filmeResponse.json()
+  return filmeData
+}
+
+async function catRandom(){
+  var catData = await getGeneros()
   var catQtd = document.getElementById("catInput").value
   var categorias=[]
   var idCategorias=[]
@@ -27,54 +39,77 @@ async function catRandom(){
     }    
   }
   for(var j=0; j<categorias.length; j++){
-      document.getElementById("cat").insertAdjacentHTML("afterbegin","<div class='catItem' id='c'><p><b>"+categorias[j]+"<b></p></div>")
+    document.getElementById("cat").insertAdjacentHTML("afterbegin","<div class='catItem' id='c'><p><b>"+categorias[j]+"<b></p></div>")
   }
   return idCategorias
 }
 
 async function showMovies(){
-  // pegar categorias
-  var catURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR"
-  var catResponse = await fetch(catURL)
-  var catData = await catResponse.json()
-  
-  let catEscID = catRandom()
-  if(!catEscID.fulfilled){
-    catEscID = await catRandom()
-  }else{
-    // pegar o nome das categorias selecionadas anteriormente
-    var generoNome =[]
-    console.log(catEscID)
-    for(let p=0;p<19;p++){
-      if(catEscID.includes(catData.genres[p].id)){
-        generoNome.push(catData.genres[p].name)
-      }
-    }
-    console.log(generoNome)
-  }
-
-  
-
-
   
   var choice = document.getElementById("movFilter").value
+  var filmeData
   
-  // pegar filmes
-  if(choice=="ppl"){
-    var filme = "https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR"
-    var filmeResponse = await fetch(filme)
-    var filmeData = await filmeResponse.json()
+  if(choice=="populares"){
+    filmeData = await getFilmes("https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR")    
+  }else if(choice=="recentes"){
+    // filmeData = await getFilmes("https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR")
+  }else if(choice=="melhorav"){
+    // filmeData = await getFilmes("https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR")
+  }
+  buildMovie(filmeData)
+}
 
-    var generoID = filmeData.results.genre_ids //pegar id do genero do filme popular
+async function buildMovie(filmeData){
+  let catData = await getGeneros()// pegar categorias da api
+  let catEscID = await catRandom()// pegar os IDs das categorias que foram sorteadas
 
-    
-    var img = filmeData.results.poster_path
-    var imgURL = "https://image.tmdb.org/t/p/w500"+img+"?api_key=5bb8005de7fd8012a01a757e91ccf015" //colocar no src
+  let generoResult = []
   
+  // percorrer o json e comparar os IDs dos gêneros da API com os gêneros escolhidos aleatoriamente
+  for(let r=0;r<20;r++){// percorre os 20 resultados de filmes
+    var gens = ""// armazenar os nomes dos filmes
     
+    for(let g=0;g<5;g++){// percorre o vetor de gêneros dentro do resultado
+      if(filmeData.results[r].genre_ids[g]){// verifica se há gênero no resultado
+        generoResult.push(filmeData.results[r].genre_ids[g])
+
+        for(let n=0;n<18;n++){// percorre o vetor dos gêneros
+          if(catData.genres[n].id == generoResult[g]){
+            if(gens == ""){
+              gens = catData.genres[n].name
+            }else{
+              gens = gens + ", " + catData.genres[n].name
+            }
+          }
+        }
+        
+      }
+      for(let x=0;x<generoResult.length;x++){
+        if(catEscID.includes(generoResult[x])){// verifica se algum dos gêneros do filme é igual a algum selecionado
+          var match = true
+        }
+      }
+      
+    }
+    if(match == true){// caso o filme possua um gênero que foi sorteado anteriormente
+      match = false // para a validação funcionar da próxima vez
+      //
+      //
+      //
+      // MONTAR O FILME AQUI
+      //
+      //
+      //
+      console.log("TRUE\n.")
+    }
+    
+    console.log(generoResult)
+    console.log(gens)
+    generoResult.splice(0, generoResult.length)
+    gens = ""
     
   }
-  
-  
-  
+  var img = filmeData.results.poster_path
+  var imgURL = "https://image.tmdb.org/t/p/w500"+img+"?api_key=5bb8005de7fd8012a01a757e91ccf015" //colocar no src 
 }
+

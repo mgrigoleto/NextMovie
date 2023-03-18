@@ -7,7 +7,7 @@
   <title>NextMovie</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-  <link rel="icon" href="">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4029/4029004.png">
 </head>
 
 <body>
@@ -21,40 +21,58 @@
         <p>Sabe quando bate aquela vontade de assistir um filme mas você não faz ideia do que assistir? Essa ferramenta é para você!</p>
         <p>Aqui você consegue obter um leque aleatório de filmes para assistir, com base nos gêneros que também são escolhidos aleatóriamente para você!</p>
       </div>
-      <div id="sortear">       
-        <p>BUSCAR</p>
-      </div>
       
-      <div id="above">
+      <div class="above">
         
-        <div id="ctbox30">
+        <div class="ctbox30">
           <h3 class="centerTitle">Gêneros sorteados:</h3>
           <div id="catQtd">
             <div>
               <p>Quantos gêneros de filme você deseja sortear?</p>
             </div>
             <div class="dadoButton" id="catqt">
-              <input type="number" min="1" value="1" id="catInput" max="19"></input>
+              <select id="catInput">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              
             </div>            
-          </div>
-          <div id="cat">
           </div>
         </div>
 
-        <div id="ctbox60">
+        <div class="ctbox60">
           <h3 class="centerTitle">Lista de filmes:</h3>
           <div id="chsFilme">
             <div>
-              <p>Procurar filmes que sejam:</p>
+              <p>Buscar filmes dos gêneros sorteados que são:</p>
             </div>
             <div class="dadoButton">
               <select id="movFilter" required>                
-                <option value="ppl" selected>Populares</option>
-                <option value="yng">Mais novos</option>
-                <option value="bst">Melhor avaliados</option>
+                <option value="populares" selected>Populares</option>
+                <option value="recentes">Recentes</option>
+                <option value="melhorav">Melhor avaliados</option>
               </select>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div id="sortear">       
+        <p>BUSCAR</p>
+      </div>
+
+      <div class="above">
+        <div class="ctbox30">
+          
+          <div id="cat">
+          </div>
+          
+        </div>
+        
+        <div class="ctbox60">
 
           <div class="filme">
             <div class="filmeFoto">
@@ -62,7 +80,7 @@
               <img class="poster" src="https://image.tmdb.org/t/p/w500/sv1xJUazXeYqALzczSZ3O6nkH75.jpg?api_key=5bb8005de7fd8012a01a757e91ccf015">
             </div>
             <div class="filmeInfo">              
-              <p><b>Gênero:</b> Ação</p>
+              <p><b>Gêneros:</b> Ação</p>
               <p><b>Sinopse:</b> A rainha Ramonda, Shuri, M'Baku, Okoye e as poderosas Dora Milaje lutam para proteger sua nação após a morte do rei T'Challa. Com a ajuda da Cão de Guerra Nakia e de Everett Ross, eles tentam encontrar um novo caminho para Wakanda.</p>
               <p><b>Data de Lançamento:</b> 19/01/2023</p>
               <p><b>Média:</b> 6.0</p>
@@ -72,6 +90,8 @@
         </div>
         
       </div>
+
+    </div><!-- final do content -->
       
     </div>
     <div id="bottom">

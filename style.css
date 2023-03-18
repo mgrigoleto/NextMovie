@@ -21,15 +21,16 @@ body{
   justify-content:center;
   align-items: center;
 }
-div#above{
+.above{
   display:flex;
   justify-content:space-between;
+  margin-top: 20px;
 }
-#ctbox30{
-  max-width:35vw;
+.ctbox30{
+  width:35vw;
 }
-#ctbox60{
-  max-width:50vw;
+.ctbox60{
+  width:50vw;
   padding-top:0px;
 }
 
@@ -122,7 +123,7 @@ div#catQtd, div#chsFilme{
 div#catqt{
   display:flex;
 }
-input#catInput,select#movFilter{
+select#catInput,select#movFilter{
   text-align:center;
   border-radius:5px;
   border:1px solid black;
@@ -195,19 +196,17 @@ a:hover{
 
 /* ---> RESIZE <--- */
 @media screen and (max-width: 1100px){
-  #ctbox30{
-    max-width:90vw;
+  .ctbox30{
+    width:90vw;
+    padding-top:20px;
   }
-  #ctbox60{
-    max-width:90vw;
-    padding-top:30px;
+  .ctbox60{
+    width:90vw;
+    padding-top:20px;
   }
-  div#above, div#catQtd, div#chsFilme{
+  .above{
     display:block;
-  }
-  .dadoButton{
-    margin-left: 0px;
-    margin-top: 15px;
+    margin-top: 0px;
   }
   .filme{
     display:block;
@@ -217,25 +216,43 @@ a:hover{
   }
 }
 @media screen and (min-width: 1100px){
-  #ctbox30{
-    max-width:35vw;
-  }
-  #ctbox60{
-    max-width:50vw;
+  .ctbox30{
+    width:35vw;
     padding-top:0px;
   }
-  div#above, div#catQtd, div#chsFilme{
+  .ctbox60{
+    width:50vw;
+    padding-top:0px;
+  }
+  .above{
     display:flex;
-  }
-  .dadoButton{
-    margin-left: 15px;
-    margin-top: 0px;
-  }
+    margin-top: 20px;
+  }  
   .filme{
     display:flex;
   }
   #oqe{
     text-align: left;
+  }
+}
+
+/* inputs */
+@media screen and (max-width: 600px){
+  div#catQtd, div#chsFilme{
+    display:block;
+  }
+  .dadoButton{
+    margin-left: 0px;
+    margin-top: 15px;
+  }
+}
+@media screen and (min-width: 600px){
+  div#catQtd, div#chsFilme{
+    display:flex;
+  }
+  .dadoButton{
+    margin-left: 15px;
+    margin-top: 0px;
   }
 }
 
