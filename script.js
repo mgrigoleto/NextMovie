@@ -25,8 +25,14 @@ async function catRandom(){
   for(var j=0; j<19; j++){
     const catExistente = document.getElementById("c")
     if(catExistente){
-      catExistente.remove();      
+      catExistente.remove();
     }
+  }
+  
+  // verificação pra colocar o título uma vez só
+  const catTitle = document.getElementById("t")
+  if(!catTitle){    
+    document.getElementById("cat").insertAdjacentHTML("beforebegin","<h3 class='centerTitle' id='t'>Categorias:</h3>")// colocar a palavra categorias
   }
   
   while(categorias.length<catQtd){
@@ -48,6 +54,12 @@ async function showMovies(){
   
   var choice = document.getElementById("movFilter").value
   var filmeData
+
+  // verificação pra colocar o título uma vez só
+  const filmeTitle = document.getElementById("tt")
+  if(!filmeTitle){    
+    document.getElementById("filmao").insertAdjacentHTML("beforebegin","<h3 class='centerTitle' id='tt'>Filmes:</h3>")// colocar a palavra filmes
+  }
   
   if(choice=="populares"){
     filmeData = await getFilmes("https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR")    
