@@ -15,13 +15,9 @@ async function getFilmes(url){
   return filmeData
 }
 
-async function catRandom(){
-  var catData = await getGeneros()
-  var catQtd = document.getElementById("catInput").value
-  var categorias=[]
-  var idCategorias=[]
-
-  // remover os anteriores
+async function catRandom(){  
+  
+  // remover os gêneros anteriores
   for(var j=0; j<19; j++){
     const catExistente = document.getElementById("c")
     if(catExistente){
@@ -29,13 +25,18 @@ async function catRandom(){
     }
   }
   
+  var catData = await getGeneros()
+  var catQtd = document.getElementById("catInput").value
+  var categorias=[]
+  var idCategorias=[]
+  
   // verificação pra colocar o título uma vez só
   const catTitle = document.getElementById("t")
   if(!catTitle){    
     document.getElementById("cat").insertAdjacentHTML("beforebegin","<h3 class='centerTitle' id='t'>Categorias:</h3>")// colocar a palavra categorias
   }
   
-  while(categorias.length<catQtd){
+  while(categorias.length<catQtd){// pegar categorias aleatórias
     var catRandom = Math.floor(Math.random()*19)//há 19 categorias registradas no json
     var catName = catData.genres[catRandom].name
     var catID = catData.genres[catRandom].id
@@ -52,6 +53,14 @@ async function catRandom(){
 
 async function showMovies(){
   
+  // remover os gêneros anteriores
+  for(var j=0; j<20; j++){// há no máximo 20 resultados
+    const filmeExistente = document.getElementById("f")
+    if(filmeExistente){
+      filmeExistente.remove();
+    }
+  }
+  
   var choice = document.getElementById("movFilter").value
   var filmeData
 
@@ -60,13 +69,17 @@ async function showMovies(){
   if(!filmeTitle){    
     document.getElementById("filmao").insertAdjacentHTML("beforebegin","<h3 class='centerTitle' id='tt'>Filmes:</h3>")// colocar a palavra filmes
   }
+
+  const pop = "https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR"
+  const rec = "https://api.themoviedb.org/3/movie/now_playing?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR"
+  const bst = "https://api.themoviedb.org/3/movie/top_rated?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR"
   
   if(choice=="populares"){
-    filmeData = await getFilmes("https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR")    
+    filmeData = await getFilmes(pop)    
   }else if(choice=="recentes"){
-    // filmeData = await getFilmes("https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR")
+    filmeData = await getFilmes(rec)
   }else if(choice=="melhorav"){
-    // filmeData = await getFilmes("https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR")
+    filmeData = await getFilmes(bst)
   }
   buildMovie(filmeData)
 }
@@ -103,25 +116,33 @@ async function buildMovie(filmeData){
       }
       
     }
+    
+    var img = filmeData.results[r].poster_path
+    var imgURL = "https://image.tmdb.org/t/p/w500"+img+"?api_key=5bb8005de7fd8012a01a757e91ccf015" //colocar no src
+    var titulo = filmeData.results[r].title
+    var sinopse = filmeData.results[r].overview
+    var dataAPI = filmeData.results[r].release_date
+
+    let partesData = dataAPI.split('-');
+    let dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+
+    var nota = filmeData.results[r].vote_average
+    
     if(match == true){// caso o filme possua um gênero que foi sorteado anteriormente
       match = false // para a validação funcionar da próxima vez
-      //
-      //
-      //
-      // MONTAR O FILME AQUI
-      //
-      //
-      //
-      console.log("TRUE\n.")
+
+      document.getElementById("filmao").insertAdjacentHTML("afterend","<div class='filme' id='f'> <div class='filmeFoto'>"+
+                                                           "<p id='titulo'>"+titulo+"</p>"+
+        "<img class='poster' src='"+imgURL+"'>"+
+        "</div> <div class='filmeInfo'> <p><b>Gêneros:</b> "+gens+"</p>"+
+        "<p><b>Sinopse:</b> "+sinopse+"</p>"+
+        "<p><b>Data de Lançamento:</b> "+dataFormatada+"</p> <p><b>Média:</b> "+nota+"</p> </div> </div>")
     }
     
-    console.log(generoResult)
-    console.log(gens)
     generoResult.splice(0, generoResult.length)
     gens = ""
     
   }
-  var img = filmeData.results.poster_path
-  var imgURL = "https://image.tmdb.org/t/p/w500"+img+"?api_key=5bb8005de7fd8012a01a757e91ccf015" //colocar no src 
+   
 }
 
