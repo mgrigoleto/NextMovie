@@ -8,8 +8,8 @@ async function getGeneros() {
   return catData
 }
 
-async function getFilmes(url) {
-  var filme = url
+async function getFilmes(url,page,region) {
+  var filme = url+page+region
   var filmeResponse = await fetch(filme)
   var filmeData = await filmeResponse.json()
   return filmeData
@@ -61,34 +61,56 @@ async function showMovies() {
     }
   }
 
-  var choice = document.getElementById("movFilter").value
-  var filmeData
-
   // verificação pra colocar o título uma vez só
   const filmeTitle = document.getElementById("tt")
   if (!filmeTitle) {
     document.getElementById("filmao").insertAdjacentHTML("beforebegin", "<h3 class='centerTitle' id='tt'>Filmes:</h3>")// colocar a palavra filmes
   }
 
-  const pop = "https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR"
-  const rec = "https://api.themoviedb.org/3/movie/now_playing?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR"
-  const bst = "https://api.themoviedb.org/3/movie/top_rated?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page=1&region=BR"
+  // montar URL
+  let region = "&region=BR"
+  
+  const pop = "https://api.themoviedb.org/3/movie/popular?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page="
+  const rec = "https://api.themoviedb.org/3/movie/now_playing?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page="
+  const bst = "https://api.themoviedb.org/3/movie/top_rated?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page="
+  const apv = "https://api.themoviedb.org/3/movie/upcoming?api_key=5bb8005de7fd8012a01a757e91ccf015&language=pt-BR&page="
 
-  if (choice == "populares") {
-    filmeData = await getFilmes(pop)
-  } else if (choice == "recentes") {
-    filmeData = await getFilmes(rec)
-  } else if (choice == "melhorav") {
-    filmeData = await getFilmes(bst)
+
+  // executa a função para mostrar os filmes com base em uma página aleatória retornada pela API
+  let pagePopBst = Math.floor(Math.random() * 50) + 1//pega uma página aleatória de 1 a 50
+  let pageRec = Math.floor(Math.random() * 4) + 1//pega uma página aleatória de 1 a 4
+  
+  var choice = document.getElementById("movFilter").value
+  var filmeData
+  if (choice == "populares") {//possui mais de 50 páginas de resultado
+    filmeData = await getFilmes(pop,pagePopBst,region)
+  }else if (choice == "recentes") {//possui apenas 4 páginas de resultado
+    filmeData = await getFilmes(rec,pageRec,region)
+  }else if (choice == "melhorav") {//possui mais de 50 páginas de resultado
+    filmeData = await getFilmes(bst,pagePopBst,region)
+  }else if (choice == "aindapv") {//possui apenas 1 página de resultado
+    filmeData = await getFilmes(apv,1,region)
   }
-  buildMovie(filmeData)
+  await buildMovie(filmeData)
+
+  
 }
 
 async function buildMovie(filmeData) {
+  const erroFilme = document.getElementById("w")
+  if(erroFilme){
+    erroFilme.remove()
+  }
+  
   let catData = await getGeneros()// pegar categorias da api
   let catEscID = await catRandom()// pegar os IDs das categorias que foram sorteadas
 
-  let generoResult = []
+  let generoResult = [] //vetor para armazenar os gêneros do filme sorteado
+  let noRepeat = [] //vetor para evitar que apareça mais de um filme por gênero
+  
+  //vetor para evitar que o mesmo filme seja sorteado 2 vezes caso satisfaça 2 categorias sorteadas
+  //Armazena as categorias que conseguiram possuem um filme sorteado
+  let filmesID = [] 
 
   // percorrer o json e comparar os IDs dos gêneros da API com os gêneros escolhidos aleatoriamente
   for (let r = 0; r < 20; r++) {// percorre os 20 resultados de filmes
@@ -110,26 +132,31 @@ async function buildMovie(filmeData) {
 
       }
       for (let x = 0; x < generoResult.length; x++) {
-        if (catEscID.includes(generoResult[x])) {// verifica se algum dos gêneros do filme é igual a algum selecionado
+        if (catEscID.includes(generoResult[x]) && !(noRepeat.includes(generoResult[x]))) {// verifica se algum dos gêneros do filme é igual a algum selecionado
+          noRepeat.push(generoResult[x])
+          console.log(noRepeat)
           var match = true
+          var existeFilme = true
         }
       }
-
     }
-
+        
     var img = filmeData.results[r].poster_path
     var imgURL = "https://image.tmdb.org/t/p/w500" + img + "?api_key=5bb8005de7fd8012a01a757e91ccf015" //colocar no src
     var titulo = filmeData.results[r].title
     var sinopse = filmeData.results[r].overview
+    var nota = filmeData.results[r].vote_average
+    
     var dataAPI = filmeData.results[r].release_date
-
     let partesData = dataAPI.split('-');
     let dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
 
-    var nota = filmeData.results[r].vote_average
+    
 
-    if (match == true) {// caso o filme possua um gênero que foi sorteado anteriormente
+    if (match == true && !(filmesID.includes(filmeData.results[r].id))) {// caso o filme possua um gênero que foi sorteado anteriormente e não tenha sido apresentado antes
       match = false // para a validação funcionar da próxima vez
+
+      filmesID.push(filmeData.results[r].id)// armazena no vetor o ID do filme que foi sorteado
 
       document.getElementById("filmao").insertAdjacentHTML("afterend", "<div class='filme' id='f'> <div class='filmeFoto'>" +
         "<p id='titulo'>" + titulo + "</p>" +
@@ -142,7 +169,13 @@ async function buildMovie(filmeData) {
     generoResult.splice(0, generoResult.length)
     gens = ""
 
+  }//final do for de 20 repetições
+  if(existeFilme != true){
+    document.getElementById("filmao").insertAdjacentHTML("afterend","<center><p id='w'>Não foi encontrado nenhum filme das categorias sorteadas!</p></center>")
   }
+
+  console.log(noRepeat.length)
+  return noRepeat
 
 }
 
