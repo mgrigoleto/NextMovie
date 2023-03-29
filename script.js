@@ -136,7 +136,6 @@ async function buildMovie(filmeData) {
       for (let x = 0; x < generoResult.length; x++) {
         if (catEscID.includes(generoResult[x]) && !(noRepeat.includes(generoResult[x]))) {// verifica se algum dos gêneros do filme é igual a algum selecionado e se ele o filme não foi selecionado antes
           noRepeat.push(generoResult[x])
-          console.log(noRepeat)
           var match = true
           existeFilme = true
         }
