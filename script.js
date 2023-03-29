@@ -9,8 +9,7 @@ async function getGeneros() {
 }
 
 async function getFilmes(url,page,region) {
-  var filme = url+page+region
-  var filmeResponse = await fetch(filme)
+  var filmeResponse = await fetch(url+page+region)
   var filmeData = await filmeResponse.json()
   return filmeData
 }
@@ -78,10 +77,10 @@ async function showMovies() {
 
   // executa a função para mostrar os filmes com base em uma página aleatória retornada pela API
   let pagePopBst = Math.floor(Math.random() * 50) + 1//pega uma página aleatória de 1 a 50
-  let pageRec = Math.floor(Math.random() * 4) + 1//pega uma página aleatória de 1 a 4
+  let pageRec = Math.floor(Math.random() * 4) + 1//pega uma página aleatória de 1 a 3
   
   var choice = document.getElementById("movFilter").value
-  var filmeData
+  let filmeData
   if (choice == "populares") {//possui mais de 50 páginas de resultado
     filmeData = await getFilmes(pop,pagePopBst,region)
   }else if (choice == "recentes") {//possui apenas 4 páginas de resultado
@@ -112,8 +111,11 @@ async function buildMovie(filmeData) {
   //Armazena as categorias que conseguiram possuem um filme sorteado
   let filmesID = [] 
 
+  let existeFilme = false //torna-se verdadeiro caso algum filme seja encontrado
+  
+
   // percorrer o json e comparar os IDs dos gêneros da API com os gêneros escolhidos aleatoriamente
-  for (let r = 0; r < 20; r++) {// percorre os 20 resultados de filmes
+  for (let r = 0; r < filmeData.results.length; r++) {// percorre os 20 resultados de filmes
     var gens = ""// armazenar os nomes dos filmes
 
     for (let g = 0; g < 5; g++) {// percorre o vetor de gêneros dentro do resultado
@@ -132,11 +134,11 @@ async function buildMovie(filmeData) {
 
       }
       for (let x = 0; x < generoResult.length; x++) {
-        if (catEscID.includes(generoResult[x]) && !(noRepeat.includes(generoResult[x]))) {// verifica se algum dos gêneros do filme é igual a algum selecionado
+        if (catEscID.includes(generoResult[x]) && !(noRepeat.includes(generoResult[x]))) {// verifica se algum dos gêneros do filme é igual a algum selecionado e se ele o filme não foi selecionado antes
           noRepeat.push(generoResult[x])
           console.log(noRepeat)
           var match = true
-          var existeFilme = true
+          existeFilme = true
         }
       }
     }
@@ -170,12 +172,7 @@ async function buildMovie(filmeData) {
     gens = ""
 
   }//final do for de 20 repetições
-  if(existeFilme != true){
+  if(existeFilme == false){
     document.getElementById("filmao").insertAdjacentHTML("afterend","<center><p id='w'>Não foi encontrado nenhum filme das categorias sorteadas!</p></center>")
   }
-
-  console.log(noRepeat.length)
-  return noRepeat
-
 }
-
