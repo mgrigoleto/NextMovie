@@ -176,6 +176,20 @@ select#movFilter{
   font-size: 22px;
 }
 
+/* --> VER MAIS <-- */
+.verMais{
+  color:red;
+  padding-left: 5px;
+  font-weight: bold;
+  transition:0.1s;
+}
+.verMais:hover{
+  text-decoration: underline;
+  color:black;
+  cursor: pointer;
+  
+}
+
 /* ---> FOOTER <--- */
 div#footer{
   text-align: center;

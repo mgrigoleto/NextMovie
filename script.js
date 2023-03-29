@@ -118,7 +118,7 @@ async function buildMovie(filmeData) {
   for (let r = 0; r < filmeData.results.length; r++) {// percorre os 20 resultados de filmes
     var gens = ""// armazenar os nomes dos filmes
 
-    for (let g = 0; g < 5; g++) {// percorre o vetor de gêneros dentro do resultado
+    for (let g = 0; g < filmeData.results[r].genre_ids.length; g++) {// percorre o vetor de gêneros dentro do resultado
       if (filmeData.results[r].genre_ids[g]) {// verifica se há gênero no resultado
         generoResult.push(filmeData.results[r].genre_ids[g])
 
@@ -164,8 +164,10 @@ async function buildMovie(filmeData) {
         "<p id='titulo'>" + titulo + "</p>" +
         "<img class='poster' src='" + imgURL + "'>" +
         "</div> <div class='filmeInfo'> <p><b>Gêneros:</b> " + gens + "</p>" +
-        "<p><b>Sinopse:</b> " + sinopse + "</p>" +
+        "<p id='sinopse'><b>Sinopse:</b> " + sinopse + "</p>" +
         "<p><b>Data de Lançamento:</b> " + dataFormatada + "</p> <p><b>Média:</b> " + nota + "</p> </div> </div>")
+
+      showMoreSinopse()
     }
 
     generoResult.splice(0, generoResult.length)
@@ -174,5 +176,24 @@ async function buildMovie(filmeData) {
   }//final do for de 20 repetições
   if(existeFilme == false){
     document.getElementById("filmao").insertAdjacentHTML("afterend","<center><p id='w'>Não foi encontrado nenhum filme das categorias sorteadas!</p></center>")
+  }
+}
+
+function showMoreSinopse(){
+  const sinopse = document.getElementById("sinopse")
+  const sinopseSize = sinopse.textContent.length
+
+  if(sinopseSize > 300){
+    const sinopseTexto = sinopse.textContent
+    const sinopseResumida = sinopseTexto.slice(0, 300)
+    const verMais = document.createElement("span")
+    
+    verMais.textContent = " ...ver mais"
+    verMais.classList.add("verMais")
+    sinopse.textContent = sinopseResumida
+    sinopse.appendChild(verMais)
+    verMais.addEventListener("click", function(){
+      sinopse.textContent = sinopseTexto
+    })
   }
 }
